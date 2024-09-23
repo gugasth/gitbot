@@ -2,7 +2,7 @@ name: Check Commits and Send Email
 
 on:
   schedule:
-    - cron: '0 19 * * *'  # Executa todos os dias às 19h UTC
+    - cron: '0 23 * * *'  # Executa todos os dias às 19h UTC
   workflow_dispatch:  
 
 jobs:
