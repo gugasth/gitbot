@@ -53,7 +53,7 @@ def enviar_email(destinatario, assunto, mensagem):
 
 # Fluxo principal
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')  # A chave já é lida aqui
-token = os.getenv('GITHUB_TOKEN')  # O token do GitHub também
+token = os.getenv('TOKEN')  # O token do GitHub também
 
 usuario = "gugasth"
 repositorios = listar_repositorios(usuario, token)
