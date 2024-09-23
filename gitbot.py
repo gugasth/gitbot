@@ -1,13 +1,8 @@
 import requests
-import smtplib
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from datetime import datetime
-from email.mime.text import MIMEText
-from dotenv import load_dotenv
-
-
 
 # Função para listar todos os repositórios do usuário
 def listar_repositorios(usuario, token=None):
@@ -48,7 +43,7 @@ def enviar_email(destinatario, assunto, mensagem):
         plain_text_content=mensagem
     )
     try:
-        sg = SendGridAPIClient(SENDGRID_API_KEY)
+        sg = SendGridAPIClient(os.getenv('SENDGRID_API_KEY'))  # Lê a chave API do SendGrid
         response = sg.send(message)
         print(response.status_code)  
         print(response.body)          
@@ -57,12 +52,8 @@ def enviar_email(destinatario, assunto, mensagem):
         print(str(e))
 
 # Fluxo principal
-# Carrega as variáveis de ambiente do arquivo .env
-load_dotenv()
-
-# Lê a chave API do SendGrid
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
-token = os.getenv('GITHUB_TOKEN')
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')  # A chave já é lida aqui
+token = os.getenv('GITHUB_TOKEN')  # O token do GitHub também
 
 usuario = "gugasth"
 repositorios = listar_repositorios(usuario, token)
@@ -76,3 +67,5 @@ if not commit_realizado:
     print('Email enviado!')
 else:
     print("Commit realizado em algum repositório.")
+    enviar_email("gustavo.p07@aluno.ifsc.edu.br", "Alerta: Commits realizados!", "Você realizou alguns commits hoje.")
+    print('Email enviado!')
