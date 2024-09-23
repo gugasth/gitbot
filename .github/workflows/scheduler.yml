@@ -2,7 +2,7 @@ name: Check Commits and Send Email
 
 on:
   schedule:
-    - cron: '0 23 * * *'  # Executa todos os dias às 19h UTC
+    - cron: '0 23 * * *'  
   workflow_dispatch:  
 
 jobs:
@@ -23,4 +23,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run script
-        run: python gitbot.py 
+        env:  # Passando os segredos como variáveis de ambiente
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          TOKEN: ${{ secrets.TOKEN }}
+        run: python gitbot.py
