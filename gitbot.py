@@ -52,8 +52,7 @@ def enviar_email(destinatario, assunto, mensagem):
         print(str(e))
 
 # Fluxo principal
-SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')  # A chave já é lida aqui
-token = os.getenv('TOKEN')  # O token do GitHub também
+token = os.getenv('TOKEN') 
 
 usuario = "gugasth"
 repositorios = listar_repositorios(usuario, token)
@@ -67,5 +66,3 @@ if not commit_realizado:
     print('Email enviado!')
 else:
     print("Commit realizado em algum repositório.")
-    enviar_email("gustavo.p07@aluno.ifsc.edu.br", "Alerta: Commits realizados!", "Você realizou alguns commits hoje.")
-    print('Email enviado!')
